@@ -9,8 +9,13 @@ extern "C" {
 #include "stddef.h"
 #include "stdlib.h"
 
+#ifndef DS_RBTREE_COLOR
+#define DS_RBTREE_COLOR
+
 #define DS_RBTREE_RED 0
 #define DS_RBTREE_BLACK 1
+
+#endif
 
 typedef struct ds_rbtree_node {
     uint8_t color;
@@ -30,6 +35,7 @@ extern void ds_rbtree_erase(ds_rbtree*, ds_rbtree_node*);
 extern ds_rbtree_node* ds_rbtree_prev(ds_rbtree_node*);
 extern ds_rbtree_node* ds_rbtree_next(ds_rbtree_node*);
 extern ds_rbtree_node* ds_rbtree_getroot(ds_rbtree*);
+extern void ds_rbtree_free(ds_rbtree*);
 
 #ifdef __cplusplus
 } /*extern "C"*/

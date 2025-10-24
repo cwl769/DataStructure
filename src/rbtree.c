@@ -127,6 +127,13 @@ static void erase_fixup(ds_rbtree_node * node) {
     }
 }
 
+static void ds_rbtree_free_node(ds_rbtree_node*node) {
+    if(node == NULL) return;
+    ds_rbtree_free_node(node->son[0]);
+    ds_rbtree_free_node(node->son[1]);
+    free(node);
+}
+
 ds_rbtree_node* ds_rbtree_insert(ds_rbtree * tree, ds_rbtree_node * node, uint8_t which, void * data) {
     cur_tree = tree;
     ds_rbtree_node * new_node = (ds_rbtree_node*)malloc(sizeof(ds_rbtree_node));
@@ -196,4 +203,8 @@ void ds_rbtree_create(void *p){
 void ds_rbtree_modify_default(ds_rbtree_node *)
 {
     // do nothing
+}
+
+void ds_rbtree_free(ds_rbtree*tree) {
+    ds_rbtree_free_node(&tree->vir_root);
 }
